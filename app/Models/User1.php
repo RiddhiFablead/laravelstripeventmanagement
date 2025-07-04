@@ -20,3 +20,4 @@ class User1 extends Model
     
 
 }
+    

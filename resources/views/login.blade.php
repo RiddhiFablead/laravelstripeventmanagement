@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login</title>
 
-  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 </head>
 <body>
 
-    
 <section class="vh-100" style="background-color: #9A616D;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -18,20 +18,18 @@
         <div class="card" style="border-radius: 1rem;">
           <div class="row g-0">
             <div class="col-md-6 col-lg-5 d-none d-md-block">
-              <img src="assets/img/login.jpg" alt="login form"
+              <img src="{{ asset('assets/img/login.jpg') }}" alt="login form"
                    class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
             </div>
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-              
                 @if(session('error'))
                   <div class="alert alert-danger">
                     {{ session('error') }}
                   </div>
                 @endif
 
-              
                 @if($errors->any())
                   <div class="alert alert-danger">
                     <ul class="mb-0">
@@ -42,7 +40,7 @@
                   </div>
                 @endif
 
-                <form method="POST" action="{{ route('login') }}" id="loginForm">
+                <form method="POST" id="loginForm"> 
                   @csrf
 
                   <div class="d-flex align-items-center mb-3 pb-1">
@@ -54,17 +52,14 @@
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="email">Email address</label>
-                    <input type="email" id="email" name="email"
-                           class="form-control form-control-lg"
-                           value="{{ old('email') }}"  />
-                    <span id="emailError" class="text-danger small"></span>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}"
+                           class="form-control form-control-lg" required autofocus />
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="password">Password</label>
                     <input type="password" id="password" name="password"
-                           class="form-control form-control-lg"  />
-                    <span id="passwordError" class="text-danger small"></span>
+                           class="form-control form-control-lg" required />
                   </div>
 
                   <div class="pt-1 mb-4">
@@ -89,45 +84,48 @@
   </div>
 </section>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('loginForm');
-
-  form.addEventListener('submit', function (e) {
-    let hasError = false;
-
-    document.getElementById('emailError').textContent = '';
-    document.getElementById('passwordError').textContent = '';
-
-    const email = form.email.value.trim();
-    const password = form.password.value;
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!email) {
-      document.getElementById('emailError').textContent = 'Email is required.';
-      hasError = true;
-    } else if (!emailRegex.test(email)) {
-      document.getElementById('emailError').textContent = 'Invalid email format.';
-      hasError = true;
-    }
-
-    if (!password) {
-      document.getElementById('passwordError').textContent = 'Password is required.';
-      hasError = true;
-    } else if (password.length < 6) {
-      document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
-      hasError = true;
-    }
-
-    if (hasError) {
+  $(document).ready(function () {
+    $('#loginForm').on('submit', function (e) {
       e.preventDefault();
-    }
+
+      $.ajax({
+        url: "{{ route('login') }}", 
+        type: "POST",
+        data: $(this).serialize(),
+        headers: {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        success: function (response) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Login successful',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          setTimeout(function () {
+            window.location.href = response.redirect_url || '/dashboard';
+          }, 1500);
+        },
+        error: function (xhr) {
+          let errorMessage = 'An error occurred';
+          if (xhr.status === 422 && xhr.responseJSON.errors) {
+            const errors = xhr.responseJSON.errors;
+            errorMessage = Object.values(errors).flat().join('<br>');
+          } else if (xhr.responseJSON && xhr.responseJSON.message) {
+            errorMessage = xhr.responseJSON.message;
+          }
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            html: errorMessage
+          });
+        }
+      });
+    });
   });
-});
 </script>
 
 </body>

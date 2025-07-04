@@ -35,8 +35,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                       
-                        <a class="collapse-item" href="buttons.html">Login</a>
-                        <a class="collapse-item" href="cards.html">Change Password</a>
+                        <a class="collapse-item" href="{{route('login')}}">Login</a>
+                        <a class="collapse-item" href="{{route('changepassword')}}">Change Password</a>
                     </div>
                 </div>
             </li>
@@ -52,9 +52,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Add Customer</a>
-                        <a class="collapse-item" href="utilities-border.html">Display Customer</a>
-                        <a class="collapse-item" href="utilities-animation.html">Edit Customer</a>
+                        <a class="collapse-item" href="{{route('users.create')}}">Add Customer</a>
+                        <a class="collapse-item" href="{{route('users.index')}}">Display Customer</a>
+                       
                       
                     </div>
                 </div>
