@@ -103,10 +103,17 @@
             showConfirmButton: false,
             timer: 1500
           });
-
-          setTimeout(function () {
+          if(response.role == 'admin'){
+            setTimeout(function () {
             window.location.href = response.redirect_url || '/dashboard';
           }, 1500);
+          }else{
+            setTimeout(function () {
+            window.location.href = response.redirect_url || '/customerdashboard';
+          }, 1500);
+          }
+
+          
         },
         error: function (xhr) {
           let errorMessage = 'An error occurred';

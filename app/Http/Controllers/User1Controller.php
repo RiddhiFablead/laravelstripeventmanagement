@@ -16,29 +16,33 @@ class User1Controller extends Controller
     {
         return view('login');
     }
-    public function user(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6'
-        ]);
-        $user = User1::where('email', $request->email)->first();
+   public function user(Request $request)   
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:6'
+    ]);
 
+    $user = User1::where('email', $request->email)->first();
 
-        if ($user && Hash::check($request->password, $user->password)) {
-            Session::put('id', $user->id);
-            Session::put('name', $user->name);
-            Session::put('email', $user->email);
-            Session::put('role', $user->role);
-            if ($user->role === 'admin') {
-                return redirect('/dashboard');
-            } {
-                return redirect('/customerdashboard');
-            }
+    if ($user && Hash::check($request->password, $user->password)) {
+        Session::put('id', $user->id);
+        Session::put('name', $user->name);
+        Session::put('email', $user->email);
+        Session::put('role', $user->role);
+
+        if ($user->role === 'admin') {
+              echo json_encode(["status" => "success", "role" => "admin"]);
+        //  return redirect('/dashboard');
         } else {
+              echo json_encode(["status" => "success", "role" => "user"]);
+        //  return redirect('/customerdashboard');
         }
-        return redirect()->back()->with('error', 'Invalid email or password');
     }
+
+    return redirect()->back()->with('error', 'Invalid email or password');
+}
+
     public function updateProfile(Request $request)
     {
         $request->validate([
@@ -113,7 +117,7 @@ class User1Controller extends Controller
             'role'     => $validated['role'],
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        
     }
 
 public function index()
@@ -126,7 +130,9 @@ public function destroy($id)
     $user = User1::findOrFail($id);
     $user->delete();
 
-    return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+    // return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+     return response()->json(['message' => 'User Deleted successfully.'], 200);
+    
 }
 public function edit($id)
 {
@@ -144,9 +150,11 @@ public function update(Request $request, $id)
     ]);
     
     $user = User1::findOrFail($id);
-    $user->update($validated);
+    $user->update($validated);  
 
-    return redirect()->route('users.index')->with('success', 'User updated successfully!');
+    // return redirect()->route('users.index')->with('success', 'User updated successfully!');
+    return response()->json(['message' => 'User updated successfully.'], 200);
+    
 }
 
 

@@ -78,8 +78,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                      
-                        <a class="collapse-item" href="login.html">Add Event</a>
-                        <a class="collapse-item" href="register.html">Show Event</a>
+                        <a class="collapse-item" href="{{route('events.create')}}">Add Event</a>
+                        <a class="collapse-item" href="{{route('events.index')}}">Show Event</a>
                       
                     </div>
                 </div>

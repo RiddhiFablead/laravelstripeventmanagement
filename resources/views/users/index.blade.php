@@ -9,11 +9,11 @@
     @endif
 
     <!-- Add User Button -->
-    <div class="mb-3 d-flex justify-content-between">
-        <a href="{{ route('users.create') }}" class="btn btn-primary">
-            <i class="fa-solid fa-user-plus me-2"></i> Add New User
-        </a>
-    </div>
+        <div class="mb-3 d-flex justify-content-between">
+            <a href="{{ route('users.create') }}" class="btn btn-primary">
+                <i class="fa-solid fa-user-plus me-2"></i> Add New User
+            </a>
+        </div>
 
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-dark">

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CalenderController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\User1Controller;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,7 @@ Route::get('/dashboard', function () {
 });
 
 Route::get('/customerdashboard', function () {
+    
     return view('customerdashboard');
 });
 Route::get('/profile', function () {
@@ -36,6 +39,7 @@ Route::post('/change-password', [User1Controller::class, 'updatePassword'])->nam
 Route::get('/logout', [User1Controller::class, 'logout'])->name('logout');
 
 
+
 Route::get('/login', [User1Controller::class, 'showUser'])->name('showuser');
 Route::post('/login', [User1Controller::class, 'user'])->name('login');
 Route::post('/profile', [User1Controller::class, 'updateProfile'])->name('profile.update');
@@ -47,3 +51,12 @@ Route::get('/users', [User1Controller::class, 'index'])->name('users.index');
 Route::get('/users/{id}/edit', [User1Controller::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [User1Controller::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [User1Controller::class, 'destroy'])->name('users.destroy');
+Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
+Route::get('/dashnoard', [CalenderController::class, 'view']);
+Route::get('/dashboard-events', [CalenderController::class, 'getEvents']);
+Route::get('/eventcard', [EventController::class, 'index'])->name('eventcard.index');
+
+
+
