@@ -22,7 +22,7 @@ class EventscheduleController extends Controller
                 'date' => $date,
                 'time' => $request->schedule_time[$index]
             ]);
-        }
+         }
         return response()->json([
             'message'=>'Event schedule added successfully'
         ]);
