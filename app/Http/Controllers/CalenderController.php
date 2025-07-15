@@ -27,4 +27,11 @@ class CalenderController extends Controller
         }
          return response()->json($calenderEvents);
     }
+    public function index()
+{
+    $events = Event::with('schedules')->get();
+    return view('eventcard.index', compact('events')); 
+}
+    
+
 }

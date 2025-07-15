@@ -8,7 +8,7 @@
             @foreach($event->schedules as $schedule)
                 <div class="col-md-4 mb-4">
                     <div class="card shadow">
-                        <img src="{{ asset('assets/img/' . $event->img) }}" class="card-img-top" alt="{{ $event->name }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ asset('storage/' . $event->img) }}" class="card-img-top" alt="{{ $event->name }}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->name }}</h5>
                             <p class="card-text mb-1"><strong>Date:</strong> {{ \Carbon\Carbon::parse($schedule->date)->format('d M Y') }}</p>

@@ -93,10 +93,13 @@
         url: "{{ route('login') }}", 
         type: "POST",
         data: $(this).serialize(),
+         dataType: "json",
         headers: {
           'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
+        
+          
           Swal.fire({
             icon: 'success',
             title: 'Login successful',
@@ -104,6 +107,8 @@
             timer: 1500
           });
           if(response.role == 'admin'){
+            
+            
             setTimeout(function () {
             window.location.href = response.redirect_url || '/dashboard';
           }, 1500);

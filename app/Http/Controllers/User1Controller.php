@@ -30,9 +30,10 @@ class User1Controller extends Controller
         Session::put('name', $user->name);
         Session::put('email', $user->email);
         Session::put('role', $user->role);
-
+       
         if ($user->role === 'admin') {
               echo json_encode(["status" => "success", "role" => "admin"]);
+              
         //  return redirect('/dashboard');
         } else {
               echo json_encode(["status" => "success", "role" => "user"]);
@@ -40,7 +41,7 @@ class User1Controller extends Controller
         }
     }
 
-    return redirect()->back()->with('error', 'Invalid email or password');
+    // return redirect()->back()->with('error', 'Invalid email or password');
 }
 
     public function updateProfile(Request $request)

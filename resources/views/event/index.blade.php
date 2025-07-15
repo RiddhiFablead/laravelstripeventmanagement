@@ -31,7 +31,7 @@
                     <td>
                         @if($event->img)
                           
-                            <img src="{{ asset('assets/img/' . $event->img) }}" width="80">
+                            <img src="{{ asset('storage/' . $event->img) }}" width="80">
 
                         @else
                             No Image
