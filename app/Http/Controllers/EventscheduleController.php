@@ -27,4 +27,8 @@ class EventscheduleController extends Controller
             'message'=>'Event schedule added successfully'
         ]);
     }
+    public function view()
+    {
+        return view('eventschedule');
+    }
 }

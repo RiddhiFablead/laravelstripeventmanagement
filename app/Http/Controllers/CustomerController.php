@@ -14,7 +14,7 @@ class CustomerController extends Controller
     public function index()
     {
         $events = Event::all();
-        return view('customerdashboard', compact('events'));
+        return view('customerevent', compact('events'));
     }
     public function show($id)
     {
@@ -31,7 +31,7 @@ class CustomerController extends Controller
         'name'=>'required|string|max:255',
         'email'=>'required|email',
           'schedule_ids' => 'required|array',
-        'schedule_ids.*' => 'exists:event_schedules,id',
+        'schedule_ids.*' => 'exists:events_schedules,id',
     ]);
     foreach ($validated['schedule_ids']as $scheduleId){
         Booking::create([
@@ -44,6 +44,12 @@ class CustomerController extends Controller
     }
      return back()->with('success', 'Booking successful!');
    }
+   
+    public function dashboard()
+    {
+        return view('customerdashboard');
+    }
+ 
  
       
 }

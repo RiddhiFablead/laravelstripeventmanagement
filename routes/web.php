@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventscheduleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\User1Controller;
 use Illuminate\Support\Facades\Route;
@@ -55,13 +57,21 @@ Route::delete('/users/{id}', [User1Controller::class, 'destroy'])->name('users.d
 Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
-Route::get('/dashnoard', [CalenderController::class, 'view']);
+Route::get('/dashboard', [CalenderController::class, 'view']);
 Route::get('/dashboard-events', [CalenderController::class, 'getEvents']);
 Route::get('/eventcard', [CalenderController::class, 'index'])->name('eventcard.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
-Route::get('/customerdashboard', [CustomerController::class, 'index'])->name('customer.dashboard');
+
+Route::get('/customerdashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
 Route::get('/customer/events/{id}', [CustomerController::class, 'show'])->name('events.show');
-Route::post('/customer/events/{event}/book', [CustomerController::class, 'book'])->name('book.event');
+Route::post('/customer/events/{event}/book', [BookingController::class, 'store'])->name('book.event');
+ Route::get('/customerevent', [CustomerController::class, 'index'])->name('customer.event');
+// Route::get('/mybookings', [CustomerController::class, 'myBookings'])->name('customer.mybookings');
+
+
+
+Route::get('/eventschedule', [EventscheduleController::class, 'view'])->name('eventschedule.view');
+Route::post('/eventschedule/store', [EventscheduleController::class, 'store'])->name('eventschedule.store');
 
 
 

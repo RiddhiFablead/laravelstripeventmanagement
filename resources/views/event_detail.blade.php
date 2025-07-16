@@ -54,13 +54,15 @@
       
           <div class="mb-3">
               <label>Your Email</label>
-             <input type="text" name="name" class="form-control" value="{{ session('email') }}" required>
+             <input type="email" name="email" class="form-control" value="{{ session('email') }}" required>
           </div>
 
           <!-- Multiple Schedules -->
           <div class="mb-3">
               <label>Select Date & Time</label>
-              <select name="schedule_ids[]" class="form-control" multiple required>
+           <select name="schedule_ids[]" class="form-control" multiple required>
+
+
                   @foreach ($event->schedules as $schedule)
                       <option value="{{ $schedule->id }}">
                           {{ \Carbon\Carbon::parse($schedule->date)->format('d M Y') }}
@@ -79,4 +81,19 @@
     </div>
   </div>
 </div>
+@endsection
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 @endsection
