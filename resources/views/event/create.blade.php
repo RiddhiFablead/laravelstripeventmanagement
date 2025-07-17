@@ -4,7 +4,8 @@
 <div class="container mt-5">
   <div class="card p-4">
     <h4>Add New Event</h4>
-    <form  method="POST" enctype="multipart/form-data" id="addEventForm">
+    <form method="POST" enctype="multipart/form-data" id="addEventForm" action="{{ route('events.store') }}">
+
       @csrf
 
       <div class="mb-3">
@@ -85,6 +86,7 @@ $(document).ready(function () {
     // Form submission with AJAX
     $('#addEventForm').on('submit', function (e) {
         e.preventDefault();
+        alert('submit');
 
         // Clear previous errors
         $('small.text-danger').text('');

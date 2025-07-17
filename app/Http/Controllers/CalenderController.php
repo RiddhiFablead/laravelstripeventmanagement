@@ -16,10 +16,11 @@ class CalenderController extends Controller
     }
       public function getEvents()
     {
-        $events = Event::all();
+        $events = Event::select('events.*' ,'events_schedule.date','events_schedule.time')->join('events_schedule','events_schedule.event_id','=','events.id')->get();
 
         $formattedEvents = [];
-
+      
+       
         foreach ($events as $event) {
             $formattedEvents[] = [
                 'title' => $event->name,
@@ -29,6 +30,11 @@ class CalenderController extends Controller
         }
 
         return response()->json($formattedEvents);
+    }
+    public function index()
+    {
+         $events = Event::all();
+        return view('eventcard.index', compact('events'));
     }
 
 }

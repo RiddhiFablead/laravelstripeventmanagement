@@ -55,12 +55,59 @@ class EventController extends Controller
     }
 
 
-  
-public function index()
-{
-    $events = Event::with('schedules')->get(); 
-    return view('events.index', compact('events')); 
-}
 
+    public function index()
+    {
+        $events = Event::with('schedules')->get();
+        return view('event.index', compact('events'));
+    }
+
+    public function getCalendarEvents()
+    {
+        $schedules = EventSchedule::with('event')->get();
+        $events = $schedules->map(function ($schedule) {
+            return [
+                'title' => $schedule->event->name,
+                'start' => $schedule->date,
+                'extendedProps' => [
+                    'event_id' => $schedule->event->id,
+                ]
+            ];
+        });
+        return response()->json($events);
+    }
+   public function getEventByDate(Request $request)
+   {
+        $schedule=EventSchedule::with('event')
+        ->where('date',$request->date)
+        ->first();
+        if(!$schedule){
+            return response()->json(null);
+        }
+        return response()->json([
+            'name'=>$schedule->event->name,
+            'description'=>$schedule->event->description,
+             'location' => $schedule->event->location,
+            'price' => $schedule->event->price,
+             'date' => $schedule->date,
+             'time' => $schedule->time,
+            
+        ]);
+
+        
+   }
+   public function getEventCards()
+   {
+        $schedules=EventSchedule::with('event')->get();
+        $cards=$schedules->map(function($schedule){
+            return[
+            'name' => $schedule->event->name,
+            'date' => $schedule->date,
+            'time' => $schedule->time,
+            'img' => $schedule->event->img,
+            ];
+        });
+         return response()->json($cards);
+   }
    
 }

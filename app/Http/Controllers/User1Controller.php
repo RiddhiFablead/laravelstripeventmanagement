@@ -117,6 +117,10 @@ class User1Controller extends Controller
             'address'  => $validated['address'],
             'role'     => $validated['role'],
         ]);
+        return response()->json([
+        'success' => true,
+        'message' => 'User created successfully.'
+    ]);
 
         
     }
@@ -131,8 +135,8 @@ public function destroy($id)
     $user = User1::findOrFail($id);
     $user->delete();
 
-    // return redirect()->route('users.index')->with('success', 'User deleted successfully!');
-     return response()->json(['message' => 'User Deleted successfully.'], 200);
+     return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+    //  return response()->json(['message' => 'User Deleted successfully.'], 200);
     
 }
 public function edit($id)

@@ -2,27 +2,35 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2>My Booked Events</h2>
-    <div class="row">
-        @forelse ($bookedEvents as $event)
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    @if ($event->img)
-                        <img src="{{ asset('storage/' . $event->img) }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                    @else
-                        <img src="{{ asset('images/default-event.jpg') }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                    @endif
+    <h3 class="mb-4">My Bookings</h3>
 
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-center">{{ $event->name }}</h5>
-                        <p class="text-muted">{{ $event->date }}</p>
-                        <a href="{{ route('events.show', $event->id) }}" class="btn btn-primary mt-auto">View</a>
-                    </div>
-                </div>
-            </div>
-        @empty
-            <p class="text-center">You haven't booked any events yet.</p>
-        @endforelse
-    </div>
+    @if($bookings->isEmpty())
+        <div class="alert alert-info">You have no bookings yet.</div>
+    @else
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Event Name</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($bookings as $booking)
+                    <tr>
+                        <td>{{ $booking->name }}</td>
+                        <td>{{ $booking->email }}</td>
+                        <td>{{ $booking->event_name }}</td>
+                        <td>₹{{ number_format($booking->price, 2) }}</td>
+                        <td>{{ \Carbon\Carbon::parse($booking->date)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($booking->time)->format('h:i A') }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 </div>
 @endsection

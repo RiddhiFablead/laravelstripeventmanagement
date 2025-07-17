@@ -12,6 +12,6 @@ class EventSchedule extends Model
     protected $fillable=['event_id','date','time'];
     public function event()
     {
-         return $this->belongsTo(Event::class);
+         return $this->belongsTo(Event::class,'event_id');
     }
 }
