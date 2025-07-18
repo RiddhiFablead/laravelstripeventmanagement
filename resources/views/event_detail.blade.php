@@ -14,6 +14,7 @@
 
         {{-- Event Details --}}
         <div class="col-md-6">
+            
             <h2>{{ $event->name }}</h2>
             <p><strong>Description:</strong> {{ $event->description }}</p>
             <p><strong>Price:</strong> ₹{{ $event->price }}</p>
@@ -37,7 +38,7 @@
 <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{{ route('book.event', $event->id) }}" method="POST">
+      <form action="{{ route('bookings') }}" method="POST">
         @csrf
         <div class="modal-header">
           <h5 class="modal-title">Book Event</h5>
@@ -56,11 +57,15 @@
               <label>Your Email</label>
              <input type="email" name="email" class="form-control" value="{{ session('email') }}" required>
           </div>
+           <div class="mb-3">
+              
+             <input type="hidden" name="eventid" class="form-control" value="{{ $event->id }}" required>
+          </div>
 
           <!-- Multiple Schedules -->
           <div class="mb-3">
               <label>Select Date & Time</label>
-           <select name="schedule_ids[]" class="form-control" multiple required>
+           <select name="schedule_ids" class="form-control" multiple required>
 
 
                   @foreach ($event->schedules as $schedule)

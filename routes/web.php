@@ -69,13 +69,22 @@ Route::get('/events/cards', [EventController::class, 'getEventCards'])->name('ev
 Route::get('/dashboard', [CalenderController::class, 'view']);
 Route::get('/dashboard-events', [CalenderController::class, 'getEvents']);
 Route::get('/calendar/events', [CalenderController::class, 'getEvents'])->name('calender.events');
-Route::get('/eventcard', [CalenderController::class, 'index'])->name('eventcard.index');
+Route::get('/eventcard', [CalenderController::class, 'index'])->name('eventcard');
 
 Route::get('/customerdashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
 Route::get('/customer/events/{id}', [CustomerController::class, 'show'])->name('events.show');
 Route::post('/customer/events/{event}/book', [BookingController::class, 'store'])->name('book.event');
  Route::get('/customerevent', [CustomerController::class, 'index'])->name('customer.event');
 // Route::get('/mybookings', [CustomerController::class, 'myBookings'])->name('customer.mybookings');
+Route::get('/my-bookings', [BookingController::class, 'myBookings'])->name('booking.my')->middleware('check.user.role');
+Route::post('/eventbooking', [BookingController::class, 'store'])->name('bookings');
+Route::post('/bookings/{event}', [BookingController::class, 'store'])->name('bookings.store');
+
+
+Route::get('/check', function () {
+  
+})->middleware('check.user.role');
+
 
 
 

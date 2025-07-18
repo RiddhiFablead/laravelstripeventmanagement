@@ -107,7 +107,7 @@ class EventController extends Controller
             'img' => $schedule->event->img,
             ];
         });
-         return response()->json($cards);
+         return view('eventcard.index', compact('cards'));
    }
    
 }

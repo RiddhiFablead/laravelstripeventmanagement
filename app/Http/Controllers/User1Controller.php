@@ -75,7 +75,7 @@ class User1Controller extends Controller
     {
         $request->validate([
             'oldpassword' => 'required',
-            'newpassword' => 'required|string|min:6|confirmed',
+             'newpassword' => 'required|string|min:6|confirmed',
         ]);
 
         $user = User1::where('email', session('email'))->first();

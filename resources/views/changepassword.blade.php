@@ -86,7 +86,7 @@
           email: email,
           oldpassword: oldpassword,
           newpassword: newpassword,
-          confirmpassword: confirmpassword,
+          newpassword_confirmation: confirmpassword,
         },
         success: function (res) {
           Swal.fire({
