@@ -18,6 +18,7 @@ return new class extends Migration
              $table->integer('event_schedule_id')->constrained()->onDelete('cascade');
              $table->string('name');
             $table->string('email');
+            $table->decimal('price',8,2);
             $table->timestamps();
         });
     }

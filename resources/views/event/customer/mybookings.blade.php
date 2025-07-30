@@ -11,7 +11,7 @@
             <thead class="table-dark">
                 <tr>
                     <th>Booking ID</th>
-                    <th>Event ID</th>
+                    {{-- <th>Event ID</th> --}}
                     <th>Event Name</th>
                     <th>Price</th>
                     <th>Date</th>
@@ -23,8 +23,8 @@
                 @foreach($bookings as $booking)
                     <tr>
                         <td>{{ $booking->id }}</td>
-                        <td>{{ $booking->event_id }}</td>
-                        <td>{{ $booking->event_name }}</td>
+                        {{-- <td>{{ $booking->event_id }}</td> --}}
+                        <td>{{ $booking->events_name }}</td>
                         <td>₹{{ number_format($booking->price, 2) }}</td>
                         <td>{{ \Carbon\Carbon::parse($booking->date)->format('d-m-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($booking->time)->format('h:i A') }}</td>

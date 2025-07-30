@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EventSchedule extends Model
 {
     use HasFactory;
-    protected $table='events_schedule';
+    protected $table='events_schedules';
     protected $fillable=['event_id','date','time'];
     public function event()
     {

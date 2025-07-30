@@ -38,7 +38,7 @@
 <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{{ route('bookings') }}" method="POST">
+      <form action="{{ route('stripe.checkout') }}" method="POST">
         @csrf
         <div class="modal-header">
           <h5 class="modal-title">Book Event</h5>
@@ -60,6 +60,7 @@
            <div class="mb-3">
               
              <input type="hidden" name="eventid" class="form-control" value="{{ $event->id }}" required>
+             <input type="hidden" name="price" value="{{$event->price*100}}">
           </div>
 
           <!-- Multiple Schedules -->
@@ -80,7 +81,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Book</button>
+          <button type="submit" class="btn btn-primary">Proceed To pay</button>
         </div>
       </form>
     </div>
