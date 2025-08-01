@@ -6,7 +6,8 @@
             {{-- Event Image --}}
             <div class="col-md-6">
                 @if ($event->img)
-                    <img src="{{ asset('storage/' . $event->img) }}" class="img-fluid rounded shadow">
+                
+                   <img src="{{ asset('storage/' . $event->img) }}" class="img-fluid rounded shadow">
                 @else
                     <img src="{{ asset('images/default-event.jpg') }}" class="img-fluid rounded shadow">
                 @endif

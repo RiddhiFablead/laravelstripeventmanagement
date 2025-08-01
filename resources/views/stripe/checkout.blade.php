@@ -7,6 +7,7 @@
         <p><strong>Name:</strong> {{ $name }}</p>
         <p><strong>Email:</strong> {{ $email }}</p>
         <p><strong>Amount:</strong> ₹{{ $amount }}</p>
+        <input type="hidden" name="phone" value="{{ $phone }}">
 
         <form id="payment-form" method="POST">
             @csrf
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('submit');
     form.addEventListener('click', function (e) {
         // e.preventDefault();
-        alert('STRIPE_KEY');
+       
 
         stripe.confirmCardPayment("{{ $clientSecret }}", {
             payment_method: {

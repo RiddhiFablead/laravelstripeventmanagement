@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventscheduleController;
+use App\Http\Controllers\GoogleController as ControllersGoogleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\StripPaymentController;
@@ -95,10 +96,10 @@ Route::get('/check', function () {
 Route::post('/checkout', [StripePaymentController::class, 'checkout'])->name('stripe.checkout');
 Route::get('/payment/success', [StripePaymentController::class, 'paymentSuccess'])->name('stripe.success');
 Route::get('/payment/cancel', [StripePaymentController::class, 'paymentCancel'])->name('stripe.cancel');
-Route::get('/customer/dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
 
-Route::get('/auth/redirect/google', [GoogleController::class, 'redirectToGoogle']);
-Route::get('/auth/callback/google', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::get('/auth/google', [GoogleController::class, 'redirectGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 
 

@@ -71,15 +71,9 @@
                                                     type="submit">Login</button>
                                             </div>
 
-                                            <div class="pt-1 mb-4">
-                                                <a href="{{ url('/auth/redirect/google') }}"
-                                                    class="btn btn-danger btn-lg btn-block">
-                                                    <img src="https://developers.google.com/identity/images/g-logo.png"
-                                                        alt="Google" style="width:20px; margin-right:10px;">
-                                                    Login with Google
-                                                </a>
-                                            </div>
-
+                                            <a href="{{ route('google.login') }}" class="btn btn-danger w-100 mt-2">
+                                                <i class="fa-brands fa-google me-2"></i> Login with Google
+                                            </a>
 
                                             <a class="small text-muted" href="#">Forgot password?</a>
                                             <p class="mb-5 pb-lg-2" style="color: #393f81;">

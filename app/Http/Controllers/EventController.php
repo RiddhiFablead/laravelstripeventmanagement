@@ -29,12 +29,15 @@ class EventController extends Controller
 
         // Handle image upload
         if ($request->hasFile('img')) {
+           
             $path = $request->file('img')->store('events', 'public');
             $validated['img'] = $path;
+             dd($path); 
         }
-
+       
         // Create the main event
         $event = Event::create([
+            
             'name' => $validated['name'],
             'description' => $validated['description'],
             'price' => $validated['price'],
